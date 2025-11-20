@@ -1,0 +1,119 @@
+:root {
+    --cursor-x: 50%;
+    --cursor-y: 50%;
+    --spotlight-color: rgba(255, 255, 255, 0.05);
+}
+
+body {
+    font-family: 'Geist', sans-serif;
+    background-color: #030303;
+    color: #e5e5e5;
+    overflow-x: hidden;
+    cursor: default;
+}
+
+/* Subtle Grain */
+.bg-noise {
+    position: fixed;
+    inset: 0;
+    z-index: 50;
+    pointer-events: none;
+    opacity: 0.04;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+    mix-blend-mode: overlay;
+}
+
+/* Typography overrides */
+.font-mono { font-family: 'Geist Mono', monospace; }
+h1, h2, h3, h4 { letter-spacing: -0.025em; }
+
+/* Advanced Spotlight Card */
+.spotlight-group {
+    position: relative;
+}
+
+.spotlight-card {
+    position: relative;
+    background: rgba(10, 10, 10, 0.4);
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    overflow: hidden;
+    transition: border-color 0.5s ease;
+}
+
+.spotlight-card::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(
+        600px circle at var(--cursor-x) var(--cursor-y), 
+        rgba(255, 255, 255, 0.04), 
+        transparent 40%
+    );
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    pointer-events: none;
+    z-index: 2;
+}
+
+.spotlight-card:hover {
+    border-color: rgba(255, 255, 255, 0.12);
+}
+
+.spotlight-card:hover::before {
+    opacity: 1;
+}
+
+/* Glowing Border Effect on Hover */
+.glow-border::after {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    border-radius: inherit;
+    padding: 1px;
+    background: linear-gradient(to bottom right, rgba(255,255,255,0.2), transparent, transparent);
+    -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    opacity: 0.5;
+    pointer-events: none;
+}
+
+/* Text Gradients */
+.text-gradient-primary {
+    background: linear-gradient(to bottom right, #ffffff 40%, #94a3b8);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+/* Animations */
+.marquee-mask {
+    mask-image: linear-gradient(to right, transparent, black 20%, black 80%, transparent);
+}
+
+@keyframes slide-left {
+    from { transform: translateX(0); }
+    to { transform: translateX(-50%); }
+}
+
+.animate-marquee {
+    animation: slide-left 60s linear infinite;
+}
+
+/* Spline Fade Mask */
+.spline-container {
+    mask-image: linear-gradient(to bottom, black 50%, transparent 100%);
+    transition: opacity 1s ease;
+}
+
+/* Subtle Grid Background */
+.bg-grid {
+    background-size: 40px 40px;
+    background-image: linear-gradient(to right, rgba(255, 255, 255, 0.02) 1px, transparent 1px),
+                      linear-gradient(to bottom, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
+    mask-image: radial-gradient(circle at 50% 0%, black, transparent 80%);
+}
+
+/* Scramble Text Cursor Effect */
+.hacker-text {
+    font-family: 'Geist Mono', monospace; 
+}
